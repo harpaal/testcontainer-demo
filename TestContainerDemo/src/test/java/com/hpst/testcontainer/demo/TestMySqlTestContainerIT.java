@@ -1,6 +1,7 @@
 package com.hpst.testcontainer.demo;
 
 import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.After;
 import org.junit.jupiter.api.BeforeAll;
@@ -8,6 +9,11 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.testcontainers.containers.MySQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
@@ -21,8 +27,11 @@ import org.testcontainers.junit.jupiter.Testcontainers;
  */
 @Testcontainers
 @TestInstance(Lifecycle.PER_CLASS)
+@ActiveProfiles("test")
+@DataJpaTest(showSql = true)
 
-public class TestMySqlTestContainerIT {
+@AutoConfigureTestDatabase(replace = Replace.NONE)
+class TestMySqlTestContainerIT {
 
     // will be shared between test methods
     @Container
@@ -39,6 +48,17 @@ public class TestMySqlTestContainerIT {
     void isMsqlContainerRunning() {
     	assertTrue(MY_SQL_CONTAINER.isRunning());
     }
+    
+
+	@Autowired
+	private UserJpaRepository userRepo;
+
+	@Test
+	@DisplayName("Insert User Test")
+	void testInsertUser() {
+		User savedUser = userRepo.save(new User(1l, "Harpal"));
+		assertEquals(savedUser.getName(), "Harpal");
+	}
     
     @After
     void stopContainer() {
