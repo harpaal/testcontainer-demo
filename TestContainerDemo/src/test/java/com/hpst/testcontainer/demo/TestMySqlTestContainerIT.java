@@ -2,6 +2,7 @@ package com.hpst.testcontainer.demo;
 
 import static org.junit.Assert.assertTrue;
 
+import org.junit.After;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -13,12 +14,15 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 
 
 /**
+ * 
+ * Integration Test Using Test Containers
  * @author harpal
  *
  */
 @Testcontainers
 @TestInstance(Lifecycle.PER_CLASS)
-public class TestMySqlTestContainer {
+
+public class TestMySqlTestContainerIT {
 
     // will be shared between test methods
     @Container
@@ -34,5 +38,10 @@ public class TestMySqlTestContainer {
     @DisplayName("isMsqlContainerRunning")
     void isMsqlContainerRunning() {
     	assertTrue(MY_SQL_CONTAINER.isRunning());
+    }
+    
+    @After
+    void stopContainer() {
+    	MY_SQL_CONTAINER.stop();
     }
 }
