@@ -6,14 +6,11 @@ package com.hpst.testcontainer.demo;
 import static org.junit.Assert.assertNotNull;
 
 import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
 import org.mockserver.client.MockServerClient;
-import org.mockserver.integration.ClientAndServer;
-import org.mockserver.junit.jupiter.MockServerSettings;
 import org.mockserver.model.Header;
 import org.mockserver.model.HttpRequest;
 import org.mockserver.model.HttpResponse;
@@ -34,12 +31,11 @@ import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 @Testcontainers
 @ActiveProfiles("test")
 @TestInstance(Lifecycle.PER_CLASS)
-@MockServerSettings(perTestSuite = true)
 class TestControllerUsingMockServerUsingTestContainerIT {
 
 	
 	@Container
-	MockServerContainer mockServerContainer = 	new MockServerContainer("5.10.0");
+	EnhencedMockedServerContainer mockServerContainer = 	new EnhencedMockedServerContainer("5.10.0");
 
 	MockServerClient mockserver;
 	
@@ -112,5 +108,18 @@ class TestControllerUsingMockServerUsingTestContainerIT {
 	
 	}
 	
+	
+}
+
+
+class EnhencedMockedServerContainer extends MockServerContainer{
+	EnhencedMockedServerContainer(String image){
+		super(image);
+	}
+	
+	@Override
+	public void stop() {
+		
+	}
 	
 }
