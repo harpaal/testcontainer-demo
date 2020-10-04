@@ -1,0 +1,27 @@
+#2020-10-03 23:18:13 | took 154ms | statement | connection 0| url jdbc:p6spy:mysql://localhost:32784/test?autoReconnect=true
+create table hibernate_sequence (next_val bigint) engine=InnoDB
+create table hibernate_sequence (next_val bigint) engine=InnoDB;
+#2020-10-03 23:18:13 | took 42ms | statement | connection 0| url jdbc:p6spy:mysql://localhost:32784/test?autoReconnect=true
+insert into hibernate_sequence values ( 1 )
+insert into hibernate_sequence values ( 1 );
+#2020-10-03 23:18:13 | took 186ms | statement | connection 0| url jdbc:p6spy:mysql://localhost:32784/test?autoReconnect=true
+create table user (id bigint not null, name varchar(255) not null, primary key (id)) engine=InnoDB
+create table user (id bigint not null, name varchar(255) not null, primary key (id)) engine=InnoDB;
+#2020-10-03 23:18:40 | took 23ms | statement | connection 0| url jdbc:p6spy:mysql://localhost:32784/test?autoReconnect=true
+select user0_.id as id1_0_0_, user0_.name as name2_0_0_ from user user0_ where user0_.id=?
+select user0_.id as id1_0_0_, user0_.name as name2_0_0_ from user user0_ where user0_.id=1;
+#2020-10-03 23:18:40 | took 5ms | statement | connection 1| url jdbc:p6spy:mysql://localhost:32784/test?autoReconnect=true
+select next_val as id_val from hibernate_sequence for update
+select next_val as id_val from hibernate_sequence for update;
+#2020-10-03 23:18:40 | took 9ms | statement | connection 1| url jdbc:p6spy:mysql://localhost:32784/test?autoReconnect=true
+update hibernate_sequence set next_val= ? where next_val=?
+update hibernate_sequence set next_val= 2 where next_val=1;
+#2020-10-03 23:18:40 | took 16ms | commit | connection 1| url jdbc:p6spy:mysql://localhost:32784/test?autoReconnect=true
+
+;
+#2020-10-03 23:18:40 | took 3ms | rollback | connection 0| url jdbc:p6spy:mysql://localhost:32784/test?autoReconnect=true
+
+;
+#2020-10-03 23:18:40 | took 2ms | rollback | connection 0| url jdbc:p6spy:mysql://localhost:32784/test?autoReconnect=true
+
+;

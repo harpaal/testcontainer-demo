@@ -10,10 +10,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.context.annotation.Profile;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-import org.springframework.transaction.annotation.Transactional;
 import org.testcontainers.containers.MySQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
@@ -29,9 +27,10 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 @TestInstance(Lifecycle.PER_CLASS)
 @ExtendWith(SpringExtension.class)
 @DataJpaTest
+//Default DataJpaTest uses H2 database
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @ActiveProfiles("test")
-public class TestMySqlTestContainerUsingSpringStarterIT  {
+class TestMySqlTestContainerUsingSpringStarterIT  {
 
 	@Container
 	private static final MySQLContainer<?> MY_SQL_CONTAINER = new MySQLContainer<>();
@@ -43,6 +42,6 @@ public class TestMySqlTestContainerUsingSpringStarterIT  {
 	@DisplayName("Insert User Test")
 	void testInsertUser() {
 		User savedUser = userRepo.save(new User(1l, "Harpal"));
-		assertEquals(savedUser.getName(), "Harpal");
+		assertEquals( "Harpal",savedUser.getName());
 	}
 }
