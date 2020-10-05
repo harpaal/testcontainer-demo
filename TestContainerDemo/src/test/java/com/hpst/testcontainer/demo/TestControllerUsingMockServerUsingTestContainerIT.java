@@ -35,7 +35,7 @@ class TestControllerUsingMockServerUsingTestContainerIT {
 
 	
 	@Container
-	EnhencedMockedServerContainer mockServerContainer = 	new EnhencedMockedServerContainer("5.10.0");
+	static MockServerContainer mockServerContainer = 	new MockServerContainer("5.10.0");
 
 	MockServerClient mockserver;
 	
@@ -108,18 +108,5 @@ class TestControllerUsingMockServerUsingTestContainerIT {
 	
 	}
 	
-	
-}
-
-
-class EnhencedMockedServerContainer extends MockServerContainer{
-	EnhencedMockedServerContainer(String image){
-		super(image);
-	}
-	
-	@Override
-	public void stop() {
-		
-	}
 	
 }
