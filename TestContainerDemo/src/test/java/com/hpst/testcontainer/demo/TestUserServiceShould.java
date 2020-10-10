@@ -28,6 +28,9 @@ import org.springframework.web.client.RestTemplate;
 @ExtendWith(MockitoExtension.class)
 class TestUserServiceShould {
 
+	
+	private static final String HTTPS_OFFICIAL_JOKE_API_APPSPOT_COM_RANDOM_JOKE = "https://official-joke-api.appspot.com/random_joke";
+
 	@Mock
 	UserJpaRepository userJpaRepo;
 
@@ -43,7 +46,7 @@ class TestUserServiceShould {
 		//Can't use spring Context here since its mock test for Service class not integration test 
 		//So @Value wont load properties , but spring provides ReflectionTestUtils to inject it manually 
 		ReflectionTestUtils.setField(userService, "userPrefix", "Hello,");
-		ReflectionTestUtils.setField(userService, "randomJokesApi", "https://official-joke-api.appspot.com/random_joke");
+		ReflectionTestUtils.setField(userService, "randomJokesApi", HTTPS_OFFICIAL_JOKE_API_APPSPOT_COM_RANDOM_JOKE);
 		
 		
 
@@ -52,7 +55,7 @@ class TestUserServiceShould {
 	
 	@Test
 	void getRandomUser() {
-		when(restTemplate.getForObject("https://official-joke-api.appspot.com/random_joke", String.class)).thenReturn("Jokes");
+		when(restTemplate.getForObject(HTTPS_OFFICIAL_JOKE_API_APPSPOT_COM_RANDOM_JOKE, String.class)).thenReturn("Jokes");
 		assertEquals("Jokes",userService.getRandomJokes());
 	}
 	
