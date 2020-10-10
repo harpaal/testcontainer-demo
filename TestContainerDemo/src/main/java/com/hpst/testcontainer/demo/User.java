@@ -31,7 +31,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @Builder
 @ToString
-//@EqualsAndHashCode //if entity is not implementing eqaul/hashcode , repo.save will return NPE
+@EqualsAndHashCode //if entity is not implementing eqaul/hashcode , repo.save will return NPE
 //but dont use Lombok's EqualAndHashCode in Entity classes
 public class User {
 
