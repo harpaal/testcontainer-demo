@@ -8,6 +8,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import lombok.ToString;
 
@@ -25,11 +26,21 @@ public class UserService {
 	@Value("user.prefix")
 	private String userPrefix;
 	
+	@Value("random.jokes.generator.api")
+	private String randomJokesApi;
+	
+	@Autowired
+	private RestTemplate restTemplate;
+	
+	
 	public List<UserDto> getUserList(){
 		return userRepo.getUsers();
 	}
 
 
+	public String getRandomJokes() {
+		return this.restTemplate.getForObject(this.randomJokesApi, String.class);
+	}
 	/**
 	 * @param user 
 	 * @return

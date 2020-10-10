@@ -28,10 +28,18 @@ public class UserController {
 	}
 	
 	
+	@GetMapping("/get-random-user")
+	public String getRandomUser(){
+		return userService.getRandomJokes();
+	}
+	
+	
 	@PutMapping("/add-users")
 	public void addUsers(String name){
 		 userService.saveUser(name);
 	}
+	
+	
 
 
 }
