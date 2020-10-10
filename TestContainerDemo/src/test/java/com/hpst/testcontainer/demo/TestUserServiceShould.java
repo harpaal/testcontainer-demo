@@ -34,6 +34,8 @@ class TestUserServiceShould {
 
 	@BeforeEach
 	public void setProperties() {
+		//Can't use spring Context here since its mock test for Service class not integration test 
+		//So @Value wont load properties , but spring provides ReflectionTestUtils to inject it manually 
 		ReflectionTestUtils.setField(userService, "userPrefix", "Hello,");
 
 	}
