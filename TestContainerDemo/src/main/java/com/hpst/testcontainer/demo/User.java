@@ -11,9 +11,11 @@ import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 
 
@@ -28,6 +30,9 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@ToString
+//@EqualsAndHashCode //if entity is not implementing eqaul/hashcode , repo.save will return NPE
+//but dont use Lombok's EqualAndHashCode in Entity classes
 public class User {
 
 	@Id

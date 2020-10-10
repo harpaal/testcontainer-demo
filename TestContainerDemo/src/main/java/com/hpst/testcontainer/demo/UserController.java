@@ -29,8 +29,8 @@ public class UserController {
 	
 	
 	@PutMapping("/add-users")
-	public void addUsers(){
-		 userService.saveUser();
+	public void addUsers(String name){
+		 userService.saveUser(name);
 	}
 
 
